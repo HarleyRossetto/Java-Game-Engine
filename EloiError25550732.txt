@@ -1,0 +1,7 @@
+java.lang.NullPointerException
+	at au.com.esm.eloi.src.Camera.update(Camera.java:51)
+	at au.com.esm.eloi.src.Eloi.runGameLoop(Eloi.java:192)
+	at au.com.esm.eloi.src.Eloi.run(Eloi.java:135)
+	at au.com.esm.eloi.src.Eloi.start(Eloi.java:112)
+	at au.com.esm.eloi.src.Eloi.<init>(Eloi.java:57)
+	at au.com.esm.eloi.src.Eloi.main(Eloi.java:51)
