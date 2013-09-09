@@ -51,10 +51,14 @@ public class Camera {
 	public void update(){
 		float movementMultiplier = false ? speedMultiplier : 1;
 		if (mbc.moveFoward != 0){
-			zPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward;
+			//zPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward;
+			xPosition += (((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward) * (float)Math.sin(Math.toRadians(yawRotation));
+            zPosition += (((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward) * (float)Math.cos(Math.toRadians(yawRotation));			
 		} 
 		if (mbc.moveStrafe != 0){
-			xPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe;
+			//xPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe;
+			xPosition += ((((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe) * (float)Math.sin(Math.toRadians(yawRotation + (90 * mbc.moveStrafe)))) * mbc.moveStrafe;
+			zPosition += ((((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe) * (float)Math.cos(Math.toRadians(yawRotation + (90 * mbc.moveStrafe)))) * mbc.moveStrafe;			
 		}
 		if (mbc.moveUp != 0){
 			yPosition += (((Eloi.getEloi().inputController.moveVertSlow.isPressed ? slowSpeed : speed) * Eloi.delta) * movementMultiplier) * mbc.moveUp;
@@ -70,7 +74,7 @@ public class Camera {
 		if (mbc.pitch != 0){
 			pitchRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
 		}	
-		this.limitRotation();
+		//this.limitRotation();
 	}
 	
 	public void updateCameraPosition(float xAddative, float yAddative, float zAddative){
@@ -95,7 +99,7 @@ public class Camera {
 		this.yawRotation = yaw;
 		this.pitchRotation = pitch;
 		this.rollRotation = roll;		
-		this.limitRotation();
+		//this.limitRotation();
 	}
 	
 	private void limitRotation(){
