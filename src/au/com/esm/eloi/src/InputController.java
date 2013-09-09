@@ -41,26 +41,21 @@ public class InputController {
 		this.registerBinding(moveVertSlow = new Keybinding("MoveVerticallySlow", Keyboard.KEY_E));
 	}
 	
-	public void updateController(){
-		while(Keyboard.next()){
-			int key = Keyboard.getEventKey();
-			boolean state = Keyboard.getEventKeyState();
-			Keybinding binding = keys.get(key);
-			if (binding != null){
-				binding.isPressed = state;
-				if (binding.isPressed){
-					binding.heldTime += Eloi.delta;
-				} else {
-					binding.heldTime = 0;
-				}
+	public void updateController(int key, boolean state){
+		Keybinding binding = keys.get(key);
+		if (binding != null){
+			binding.isPressed = state;
+			if (binding.isPressed){
+				binding.heldTime += Eloi.delta;
+			} else {
+				binding.heldTime = 0;
 			}
-			
-			if (Keyboard.getEventKey() == Keyboard.KEY_R){
-				Eloi.getEloi().renderView.setPosition(0, 0, 0);
-			}
-			if (resetOrientation.isPressed){
+		}			
+		if (Keyboard.getEventKey() == Keyboard.KEY_R){
+			Eloi.getEloi().renderView.setPosition(0, 0, 0);
+		}
+		if (resetOrientation.isPressed){
 				Eloi.getEloi().renderView.setCameraRotation(0f, 0f, 0f);
-			}
 		}
 	}
 	

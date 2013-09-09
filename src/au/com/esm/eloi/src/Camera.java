@@ -7,13 +7,15 @@ public class Camera {
 	private float yawRotation;
 	private float pitchRotation;
 	private float rollRotation;
-	private float speed = 0.005f;
-	private float slowSpeed = 0.0002f;
-	private float speedMultiplier = 2f;
+	private float speed = 0.005F;
+	private float slowSpeed = 0.0002F;
+	private float speedMultiplier = 2F;
 	private float zoom = 1f;
-	private float zoomSpeed = 0.005f;
-	private float rotationSpeed = 0.05f;
+	private float zoomSpeed = 0.005F;
+	private float rotationSpeed = 0.05F;
 	private int facing = 0;
+	private float yawRotationLimit = 90F;
+	private float pitchRotationLimit = 85F;
 	public MovementBasicControl mbc;
 	
 	public Camera(){
@@ -61,22 +63,14 @@ public class Camera {
 			rollRotation += (rotationSpeed * Eloi.delta) * mbc.roll;
 		}
 		if (mbc.yaw != 0){
-			yawRotation += (rotationSpeed * Eloi.delta) * mbc.yaw; 
+			yawRotation += (rotationSpeed * Eloi.delta) * mbc.yaw;
+			//yawRotation += (rotationSpeed * Eloi.delta) * (mbc.yaw * facing); 
 			facing = (int)(360 / yawRotation);
-			if (yawRotation < 0){
-				yawRotation = 360;
-			} else if (yawRotation > 359){
-				yawRotation = 359;
-			}
 		}
 		if (mbc.pitch != 0){
 			pitchRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
-			if (pitchRotation < -85){
-				pitchRotation = -85;
-			} else if (pitchRotation > 85){
-				pitchRotation = 85;
-			}
 		}	
+		this.limitRotation();
 	}
 	
 	public void updateCameraPosition(float xAddative, float yAddative, float zAddative){
@@ -100,7 +94,21 @@ public class Camera {
 	public void setCameraRotation(float yaw, float pitch, float roll){
 		this.yawRotation = yaw;
 		this.pitchRotation = pitch;
-		this.rollRotation = roll;
+		this.rollRotation = roll;		
+		this.limitRotation();
+	}
+	
+	private void limitRotation(){
+		if (yawRotation < -yawRotationLimit){
+			yawRotation = -yawRotationLimit;
+		} else if (yawRotation > yawRotationLimit){
+			yawRotation = yawRotationLimit;
+		}
+		if (pitchRotation < -pitchRotationLimit){
+			pitchRotation = -pitchRotationLimit;
+		} else if (pitchRotation > pitchRotationLimit){
+			pitchRotation = pitchRotationLimit;
+		}
 	}
 	
 	public void updateYaw(float addative){

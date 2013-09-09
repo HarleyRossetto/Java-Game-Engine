@@ -4,6 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -45,6 +46,10 @@ public class Eloi {
 	private long lastFPS;
 	public static int debugFPS;
 	public static int delta;
+	
+	
+	//Debug stuff 
+	private boolean allowMouseOrientation = true;
 	
 	
 	public static void main(String[] args){
@@ -193,8 +198,21 @@ public class Eloi {
 			renderView.mbc.roll = -1;
 		}
 		
-		inputController.updateController();
-				
+		if (allowMouseOrientation){
+			float mouseX = Mouse.getDX() * 1.2F;
+			float mouseY = -(Mouse.getDY() * 1.2F);		
+			float pitch = renderView.getPitchRotation() + mouseY;
+			float yaw = renderView.getYawRotation() + mouseX;		
+			renderView.setCameraRotation(yaw, pitch, 0.0F);
+		}
+		
+		while (Keyboard.next()){
+			inputController.updateController(Keyboard.getEventKey(), Keyboard.getEventKeyState());
+			if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE){
+				this.runGame = false;
+			}
+		}
+						
 		renderView.update();	
 				
 		globalRenderer.prepareForRender(renderView);
@@ -208,6 +226,9 @@ public class Eloi {
 		textRenderer.drawString("Y " + renderView.getY(), 0, 85, 0.5f);
 		textRenderer.drawString("Z " + renderView.getZ(), 0, 110, 0.5f);		
 		textRenderer.drawString("ORIGIN POS " + renderView.getDistanceSquaredTo(0, 0, 0), 0, 135, 0.5f);
+		textRenderer.drawString("PITCH " + renderView.getPitchRotation(), 0, 160, 0.5f);
+		textRenderer.drawString("YAW " + renderView.getYawRotation(), 0, 185, 0.5f);
+		textRenderer.drawString("ROLL " + renderView.getRollRotation(), 0, 210, 0.5f);
 		
 		if (Display.isCloseRequested()){
 			this.runGame = false;
@@ -290,6 +311,7 @@ public class Eloi {
 		try {
 			stream = new PrintStream(new FileOutputStream("EloiError" + String.valueOf(getSystemTime()) + ".txt"), false, "UTF-8");
 			ex.printStackTrace(stream);
+			System.out.println("Error file written!");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			System.out.println("Something is seriously wrong, Eloi can't even write an error file for you...");
