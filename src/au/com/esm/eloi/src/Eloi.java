@@ -26,7 +26,7 @@ public class Eloi {
 	
 	protected RenderEngine renderEngine;
 	protected GlobalRenderer globalRenderer;
-	private FontRenderer fontRenderer;	
+	private RendererText textRenderer;	
 	
 	protected Camera renderView;	
 	protected InputController inputController;
@@ -103,7 +103,7 @@ public class Eloi {
 		globalRenderer = new GlobalRenderer(renderEngine);
 		renderView = new Camera(0, 0, 0);
 		
-		fontRenderer = new FontRenderer();
+		textRenderer = new RendererText();
 		
 		inputController = new InputController();
 		
@@ -202,11 +202,12 @@ public class Eloi {
 		//Render
 		testRender();		
 		
-		fontRenderer.drawString("FPS " + debugFPS, 0, 10, 0);
-		fontRenderer.drawString("DELTA " + delta, 0, 35, 0);
-		fontRenderer.drawString("X " + renderView.getX(), 0, 70, 0);
-		fontRenderer.drawString("Y " + renderView.getY(), 0, 95, 0);
-		fontRenderer.drawString("Z " + renderView.getZ(), 0, 120, 0);		
+		textRenderer.drawString("FPS " + debugFPS, 0, 10, 0.5f);
+		textRenderer.drawString("DELTA " + delta, 0, 35, 0.5f);
+		textRenderer.drawString("X " + renderView.getX(), 0, 60, 0.5f);
+		textRenderer.drawString("Y " + renderView.getY(), 0, 85, 0.5f);
+		textRenderer.drawString("Z " + renderView.getZ(), 0, 110, 0.5f);		
+		textRenderer.drawString("ORIGIN POS " + renderView.getDistanceSquaredTo(0, 0, 0), 0, 135, 0.5f);
 		
 		if (Display.isCloseRequested()){
 			this.runGame = false;
