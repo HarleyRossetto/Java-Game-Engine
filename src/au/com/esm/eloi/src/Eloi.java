@@ -117,6 +117,7 @@ public class Eloi {
 		
 		if (GLContext.getCapabilities().GL_ARB_vertex_buffer_object){
 			runGame = true;
+			Mouse.setGrabbed(true);
 			this.run();
 		} else {
 			Writer writer = null;
