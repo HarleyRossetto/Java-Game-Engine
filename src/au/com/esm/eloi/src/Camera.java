@@ -85,18 +85,11 @@ public class Camera {
 			facing = (int)(360 / yawRotation);
 		}
 		if (mbc.pitch != 0){
-			//pitchRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
+			pitchRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
 			
-			pitchRotation -= ((rotationSpeed * Eloi.delta) * (float)Math.sin(Math.toRadians(prevPitchRotation))) * mbc.pitch;
-			yawRotation += ((rotationSpeed * Eloi.delta) * (float)Math.cos(Math.toRadians(prevYawRotation))) * mbc.pitch;
-			rollRotation -= (rotationSpeed * Eloi.delta) * mbc.pitch;
-			
-			
-			
-			//float tp = pitchRotation;
-			//pitchRotation -= (((rotationSpeed * Eloi.delta) * mbc.pitch) * (float)Math.sin(Math.toRadians(tp + (90 * mbc.pitch)))) * mbc.pitch;
-			//rollRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
-			//yawRotation -= (((rotationSpeed * Eloi.delta) * mbc.pitch) * (float)Math.sin(Math.toRadians(tp + (90 * mbc.pitch)))) * mbc.pitch;
+			//pitchRotation -= ((rotationSpeed * Eloi.delta) * (float)Math.sin(Math.toRadians(prevPitchRotation))) * mbc.pitch;
+			//yawRotation += ((rotationSpeed * Eloi.delta) * (float)Math.cos(Math.toRadians(prevYawRotation))) * mbc.pitch;
+			//rollRotation -= (rotationSpeed * Eloi.delta) * mbc.pitch;
 		}	
 		//this.limitRotation();
 	}
