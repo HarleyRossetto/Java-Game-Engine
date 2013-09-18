@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<F2IBuilder>
+  <application>
+    <name>F2IBuilder</name>
+    <version>3.8</version>
+  </application>
+  <project>
+    <useMetrics>true</useMetrics>
+    <useAlpha>true</useAlpha>
+    <showGrid>true</showGrid>
+    <antialias>true</antialias>
+    <imageType>PNG</imageType>
+    <color>
+      <font>-1</font>
+      <shadow>-12566464</shadow>
+      <background>-16777216</background>
+    </color>
+    <style>
+      <bold>false</bold>
+    </style>
+    <font>
+      <name>BrowalliaUPC</name>
+      <size>40</size>
+      <positionWidth>6</positionWidth>
+      <positionHeight>8</positionHeight>
+    </font>
+    <texture>
+      <size>512</size>
+    </texture>
+    <shadow>
+      <vertical>VerticalNone</vertical>
+      <horizontal>HorizontalNone</horizontal>
+    </shadow>
+  </project>
+</F2IBuilder>
+
