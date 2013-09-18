@@ -18,6 +18,7 @@ public class RenderEngine {
 	private final Map<String, Integer> textureMap = new HashMap<String, Integer>();
 	private static TextureMap groundTexture;
 	private static TextureMap fontTexture;
+	private static Texture genericGuiControlTexture;
 	
 	public RenderEngine() {
 		
@@ -26,6 +27,7 @@ public class RenderEngine {
 	public void loadTextures(){
 		loadTexture("terrabasics", "TerrainBasics", EnumResourceType.Terrain, true, true);
 		loadTexture("font", "Font", EnumResourceType.Font, true, false);
+		loadTexture("interfaceGenerics", "GenericGUIControls", EnumResourceType.Interface, true, false);
 	}
 	
 	public void bindTexture(String name){
@@ -79,6 +81,9 @@ public class RenderEngine {
 		}
 		if (type == EnumResourceType.Font){
 			fontTexture = new TextureMap(loadTextureMap(processedFileName, internalName));
+		}
+		if (type == EnumResourceType.Interface){
+			genericGuiControlTexture = loadTextureMap(processedFileName, internalName);
 		}
 		return loadTexture(processedFileName, internalName);
 	}

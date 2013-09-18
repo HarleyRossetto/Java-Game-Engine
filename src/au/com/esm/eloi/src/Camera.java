@@ -21,7 +21,7 @@ public class Camera {
 	private float rotationSpeed = 0.05F;
 	private int facing = 0;
 	private float yawRotationLimit = 90F;
-	private float pitchRotationLimit = 85F;
+	private float pitchRotationLimit = 89F;
 	public MovementBasicControl mbc;
 	
 	public Camera(){
@@ -64,12 +64,10 @@ public class Camera {
 		
 		float movementMultiplier = false ? speedMultiplier : 1;
 		if (mbc.moveFoward != 0){
-			//zPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward;
 			xPosition += (((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward) * (float)Math.sin(Math.toRadians(yawRotation));
             zPosition += (((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward) * (float)Math.cos(Math.toRadians(yawRotation));			
 		} 
 		if (mbc.moveStrafe != 0){
-			//xPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe;
 			xPosition += (((speed * Eloi.delta) * movementMultiplier) * (float)Math.sin(Math.toRadians(yawRotation + 90))) * mbc.moveStrafe;
 			zPosition += (((speed * Eloi.delta) * movementMultiplier) * (float)Math.cos(Math.toRadians(yawRotation + 90))) * mbc.moveStrafe;			
 		}
@@ -86,7 +84,7 @@ public class Camera {
 		if (mbc.pitch != 0){
 			pitchRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
 		}	
-		//this.limitRotation();
+		this.limitRotation();
 	}
 	
 	public void updateCameraPosition(float xAddative, float yAddative, float zAddative){
@@ -115,11 +113,6 @@ public class Camera {
 	}
 	
 	private void limitRotation(){
-		if (yawRotation < -yawRotationLimit){
-			yawRotation = -yawRotationLimit;
-		} else if (yawRotation > yawRotationLimit){
-			yawRotation = yawRotationLimit;
-		}
 		if (pitchRotation < -pitchRotationLimit){
 			pitchRotation = -pitchRotationLimit;
 		} else if (pitchRotation > pitchRotationLimit){

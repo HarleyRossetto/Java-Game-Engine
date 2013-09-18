@@ -11,10 +11,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
-import org.newdawn.slick.Color;
-
 import java.io.*;
-import java.nio.FloatBuffer;
 
 public class Eloi {
 	public static Eloi gameInstance;
@@ -36,9 +33,6 @@ public class Eloi {
 	public static int fieldOfView = 70;
 	public static float zNear = 0.02f;
 	public static float zFar = 100.0f;
-	private float fogNear = 20.0f;
-	private float fogFar = 40.0f;
-	private Color fogColor = new Color(0.7f, 0.7f, 0.8f, 1f);
 		
 	//Temporary timing control stuff.
 	private long lastFrame;
@@ -46,7 +40,6 @@ public class Eloi {
 	private long lastFPS;
 	public static int debugFPS;
 	public static int delta;
-	
 	
 	//Debug stuff 
 	private boolean allowMouseOrientation = true;
@@ -71,8 +64,7 @@ public class Eloi {
 			Display.create(new PixelFormat());
 		} catch (LWJGLException ex){
 			writeExceptionToFile(ex);			
-		}
-		
+		}		
 		try {
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadIdentity();
@@ -87,17 +79,7 @@ public class Eloi {
 			GL11.glBlendFunc(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
 			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glCullFace(GL11.GL_BACK);
-			GL11.glEnable(GL11.GL_FOG);
 			
-			FloatBuffer fogColors = BufferUtils.createFloatBuffer(4);
-			fogColors.put(new float[] {fogColor.r, fogColor.g, fogColor.b, fogColor.a});
-			GL11.glClearColor(fogColor.r, fogColor.g, fogColor.b, fogColor.a);
-			fogColors.flip();
-			GL11.glFog(GL11.GL_FOG_COLOR, fogColors);
-			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_LINEAR);
-			GL11.glHint(GL11.GL_FOG_HINT, GL11.GL_NICEST);
-			GL11.glFogf(GL11.GL_FOG_END, fogFar);
-			GL11.glFogf(GL11.GL_FOG_DENSITY, 0.005f);
 		} catch (Exception ex){
 			writeExceptionToFile(ex);
 		}
@@ -106,6 +88,7 @@ public class Eloi {
 		renderEngine.loadTextures();
 		
 		globalRenderer = new GlobalRenderer(renderEngine);
+		globalRenderer.prepareGlobalRendering();
 		renderView = new Camera(0, 0, 0);
 		
 		textRenderer = new RendererText();
@@ -303,8 +286,7 @@ public class Eloi {
 	
     public void updateFPS() 
     {
-        if (getSystemTime() - lastFPS > 1000)
-        {
+        if (getSystemTime() - lastFPS > 1000) {
             debugFPS = fps;
             fps = 0;
             lastFPS += 1000;
