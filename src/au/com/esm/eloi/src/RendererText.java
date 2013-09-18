@@ -14,7 +14,7 @@ public class RendererText {
 	}
 	
 	public void drawString(String string, float xPosition, float yPosition){
-		this.drawString(string, xPosition, yPosition, 0f, 0f, 0f, 1f);
+		this.drawString(string, xPosition, yPosition, 0f, 0f, 0f, 0.5f);
 	}
 	
 	public void drawString(String string, float xPosition, float yPosition, float alpha){

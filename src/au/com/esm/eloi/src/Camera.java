@@ -4,9 +4,15 @@ public class Camera {
 	private float xPosition;
 	private float yPosition;
 	private float zPosition;
+	private float prevXPosition;
+	private float prevYPosition;
+	private float prevZPosition;
 	private float yawRotation;
 	private float pitchRotation;
 	private float rollRotation;
+	private float prevYawRotation;
+	private float prevPitchRotation;
+	private float prevRollRotation;
 	private float speed = 0.005F;
 	private float slowSpeed = 0.0002F;
 	private float speedMultiplier = 2F;
@@ -49,6 +55,13 @@ public class Camera {
 	}
 	
 	public void update(){
+		prevXPosition = xPosition;
+		prevYPosition = yPosition;
+		prevZPosition = zPosition;
+		prevYawRotation = yawRotation;
+		prevPitchRotation = pitchRotation;
+		prevRollRotation = rollRotation;		
+		
 		float movementMultiplier = false ? speedMultiplier : 1;
 		if (mbc.moveFoward != 0){
 			//zPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveFoward;
@@ -73,6 +86,15 @@ public class Camera {
 		}
 		if (mbc.pitch != 0){
 			pitchRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
+			
+			//pitchRotation -= ((rotationSpeed * Eloi.delta) * (float)Math.sin(Math.toRadians(prevPitchRotation))) * mbc.pitch;
+			//yawRotation += ((rotationSpeed * Eloi.delta) * (float)Math.cos(Math.toRadians(prevYawRotation))) * mbc.pitch;
+			//rollRotation -= ((rotationSpeed * Eloi.delta) * (float)Math.tan(Math.toRadians(prevRollRotation))) * mbc.pitch;
+			
+			//float tp = pitchRotation;
+			//pitchRotation -= (((rotationSpeed * Eloi.delta) * mbc.pitch) * (float)Math.sin(Math.toRadians(tp + (90 * mbc.pitch)))) * mbc.pitch;
+			//rollRotation += (rotationSpeed * Eloi.delta) * mbc.pitch;
+			//yawRotation -= (((rotationSpeed * Eloi.delta) * mbc.pitch) * (float)Math.sin(Math.toRadians(tp + (90 * mbc.pitch)))) * mbc.pitch;
 		}	
 		//this.limitRotation();
 	}
