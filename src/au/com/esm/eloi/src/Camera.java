@@ -70,8 +70,8 @@ public class Camera {
 		} 
 		if (mbc.moveStrafe != 0){
 			//xPosition += ((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe;
-			xPosition += ((((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe) * (float)Math.sin(Math.toRadians(yawRotation + (90 * mbc.moveStrafe)))) * mbc.moveStrafe;
-			zPosition += ((((speed * Eloi.delta) * movementMultiplier) * mbc.moveStrafe) * (float)Math.cos(Math.toRadians(yawRotation + (90 * mbc.moveStrafe)))) * mbc.moveStrafe;			
+			xPosition += (((speed * Eloi.delta) * movementMultiplier) * (float)Math.sin(Math.toRadians(yawRotation + 90))) * mbc.moveStrafe;
+			zPosition += (((speed * Eloi.delta) * movementMultiplier) * (float)Math.cos(Math.toRadians(yawRotation + 90))) * mbc.moveStrafe;			
 		}
 		if (mbc.moveUp != 0){
 			yPosition += (((Eloi.getEloi().inputController.moveVertSlow.isPressed ? slowSpeed : speed) * Eloi.delta) * movementMultiplier) * mbc.moveUp;
@@ -81,7 +81,6 @@ public class Camera {
 		}
 		if (mbc.yaw != 0){
 			yawRotation += (rotationSpeed * Eloi.delta) * mbc.yaw;
-			//yawRotation += (rotationSpeed * Eloi.delta) * (mbc.yaw * facing); 
 			facing = (int)(360 / yawRotation);
 		}
 		if (mbc.pitch != 0){
