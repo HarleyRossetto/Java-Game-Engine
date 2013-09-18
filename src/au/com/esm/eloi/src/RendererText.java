@@ -62,7 +62,7 @@ public class RendererText {
 	}
 	
 	private void drawStringInternal3D(String string, float xPosition, float yPosition, float zPosition, float yaw, float pitch, float roll, float red, float green, float blue, float alpha){
-		//theEloi.renderEngine.setRenderMode(EnumRenderMode.PERSPECTIVE);
+		theEloi.renderEngine.setRenderMode(EnumRenderMode.PERSPECTIVE);
 		char[] characters = string.toCharArray();
 		int mapValue;
 		TextureUV uv;
@@ -91,10 +91,7 @@ public class RendererText {
 	}
 	
 	private void drawCharacter2D(Constructor constructor, float x, float y, TextureUV uv, float red, float green, float blue, float alpha){
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);		
+		this.preCharacterRender();
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glColor4f(red, green, blue, alpha);
 		GL11.glTexCoord2f(uv.uMin, uv.vMax);
@@ -106,22 +103,29 @@ public class RendererText {
 		GL11.glTexCoord2f(uv.uMin, uv.vMin);
 		GL11.glVertex2f(x, y + squareSize);
 		GL11.glEnd();
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		this.postCharacterRender();
 	}
 	
 	private void drawCharacter3D(Constructor constructor, float x, float y, float z, TextureUV uv, float red, float green, float blue, float alpha){
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		this.preCharacterRender();
 		constructor.addVertexAndUV(x, y, z, uv.uMin, uv.vMax);
-		constructor.addVertexAndUV(x + squareSize, y, z, uv.uMax, uv.vMax);
-		constructor.addVertexAndUV(x + squareSize, y + squareSize, z, uv.uMax, uv.vMin);
-		constructor.addVertexAndUV(x, y + squareSize, z, uv.uMin, uv.vMin);
+		constructor.addVertexAndUV(x, y, z, uv.uMax, uv.vMax);
+		constructor.addVertexAndUV(x, y, z, uv.uMin, uv.vMin);
+		constructor.addVertexAndUV(x, y, z, uv.uMin, uv.vMin);
+		this.postCharacterRender();
+	}
+	
+	private void preCharacterRender(){
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);				
+	}
+	
+	private void postCharacterRender(){
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_CULL_FACE);
 	}
 	
