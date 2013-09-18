@@ -2948,3 +2948,4 @@ lib/lwjgl-source-2.8.4/src/templates/org/lwjgl/opengles/VIV_shader_binary.java
 .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.mylyn.context.core.prefs
 .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.mylyn.monitor.ui.prefs
 .metadata/.plugins/org.eclipse.team.cvs.core/.running
+.metadata/.mylyn/repositories.xml.zip
