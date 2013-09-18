@@ -203,7 +203,8 @@ public class Eloi {
 			float mouseX = Mouse.getDX() * 1.2F;
 			float mouseY = -(Mouse.getDY() * 1.2F);		
 			float pitch = renderView.getPitchRotation() + mouseY;
-			float yaw = renderView.getYawRotation() + mouseX;		
+			float yaw = renderView.getYawRotation() + mouseX;
+			//Pitch needs calculations?
 			renderView.setCameraRotation(yaw, pitch, 0.0F);
 		}
 		
