@@ -7,6 +7,7 @@ public class RendererText {
 	private TextureMap fontMap;
 	private Eloi theEloi;
 	public static final int squareSize = 16;
+	public static final int squareSize3D = 1;
 	
 	public RendererText(){
 		this.theEloi = Eloi.getEloi();
@@ -76,7 +77,7 @@ public class RendererText {
                 mapValue = getFontMapValue(characters[i]);
                 uv = RenderEngine.getTextureMap(1).getUVCoordinates(mapValue);
                 drawCharacter3D(var1, xPosition, yPosition, zPosition, uv, red, green, blue, alpha);
-                xPosition += 16f;
+                xPosition += 0.9f;
         }
         GL11.glPopMatrix();
 	}
@@ -116,10 +117,10 @@ public class RendererText {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_CULL_FACE);
-        constructor.addVertexAndUV(x, y, z, uv.uMin, uv.vMax);
-        constructor.addVertexAndUV(x + squareSize, y, z, uv.uMax, uv.vMax);
-        constructor.addVertexAndUV(x + squareSize, y + squareSize, z, uv.uMax, uv.vMin);
-        constructor.addVertexAndUV(x, y + squareSize, z, uv.uMin, uv.vMin);
+        constructor.addVertexAndUV(x, y, z, uv.uMin, uv.vMin);
+        constructor.addVertexAndUV(x + squareSize3D, y, z, uv.uMax, uv.vMin);
+        constructor.addVertexAndUV(x + squareSize3D, y + squareSize3D, z, uv.uMax, uv.vMax);
+        constructor.addVertexAndUV(x, y + squareSize3D, z, uv.uMin, uv.vMax);
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_CULL_FACE);
