@@ -15,9 +15,9 @@ public class GlobalRenderer {
 	
 	public void prepareForRender(Camera camera){
 		renderEngine.setRenderMode(EnumRenderMode.PERSPECTIVE);
-		GL11.glRotatef(camera.getRollRotation(), 0, 0, 1);
-		GL11.glRotatef(camera.getYawRotation(), 0, 1, 0);
 		GL11.glRotatef(camera.getPitchRotation(), 1, 0, 0);
+		GL11.glRotatef(camera.getYawRotation(), 0, 1, 0);
+		GL11.glRotatef(camera.getRollRotation(), 0, 0, 1);
 		GL11.glTranslatef(-camera.getX(), -camera.getY(), camera.getZ());
 		GL11.glScalef(camera.getZoom(), camera.getZoom(), camera.getZoom());
 	}
