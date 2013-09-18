@@ -117,6 +117,7 @@ public class Eloi {
 		
 		if (GLContext.getCapabilities().GL_ARB_vertex_buffer_object){
 			runGame = true;
+			if (allowMouseOrientation) Mouse.setGrabbed(true);
 			Mouse.setGrabbed(true);
 			this.run();
 		} else {
@@ -222,6 +223,7 @@ public class Eloi {
 		//Render
 		testRender();		
 		
+		textRenderer.drawString3D("STRING", -5, -4, 3, 0, 0, 0, 0F, 0F, 0F, 0.5F);
 		textRenderer.drawString("FPS " + debugFPS, 0, 10, 0.5f);
 		textRenderer.drawString("DELTA " + delta, 0, 35, 0.5f);
 		textRenderer.drawString("X " + renderView.getX(), 0, 60, 0.5f);
