@@ -2940,3 +2940,12 @@ lib/lwjgl-source-2.8.4/src/templates/org/lwjgl/opengles/VIV_shader_binary.java
 .metadata/.plugins/org.eclipse.jdt.ui/QualifiedTypeNameHistory.xml
 .metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml
 .metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
+.metadata/.log
+.metadata/.plugins/org.eclipse.cdt.core/.log
+.metadata/.plugins/org.eclipse.cdt.make.core/specs.c
+.metadata/.plugins/org.eclipse.cdt.make.core/specs.cpp
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jst.j2ee.webservice.ui.prefs
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.mylyn.context.core.prefs
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.mylyn.monitor.ui.prefs
+.metadata/.plugins/org.eclipse.team.cvs.core/.running
+.metadata/.mylyn/repositories.xml.zip
