@@ -43,6 +43,7 @@ public class InputController {
 	
 	public void updateController(int key, boolean state){
 		Keybinding binding = keys.get(key);
+		Eloi eloi = Eloi.getEloi();
 		if (binding != null){
 			binding.isPressed = state;
 			if (binding.isPressed){
@@ -52,10 +53,35 @@ public class InputController {
 			}
 		}			
 		if (Keyboard.getEventKey() == Keyboard.KEY_R){
-			Eloi.getEloi().renderView.setPosition(0, 0, 0);
+			eloi.renderView.setPosition(0, 0, 0);
 		}
 		if (resetOrientation.isPressed){
-				Eloi.getEloi().renderView.setCameraRotation(0f, 0f, 0f);
+			eloi.renderView.setCameraRotation(0f, 0f, 0f);
+		}
+		if (state){
+			if (Keyboard.getEventKey() == Keyboard.KEY_F1){
+				if (eloi.showDebugLayerToggleReset){
+					eloi.showDebugLayerToggleReset = false;
+					eloi.showDebugLayer = !eloi.showDebugLayer;
+				}
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_F2){
+				if (eloi.showInterfaceReset){
+					eloi.showInterfaceReset = false;
+					eloi.showInterface = !eloi.showInterface;
+				}
+			}
+		} else {
+			if (Keyboard.getEventKey() == Keyboard.KEY_F1){
+				if (!eloi.showDebugLayerToggleReset){
+					eloi.showDebugLayerToggleReset = true;
+				}
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_F2){
+				if (!eloi.showInterfaceReset){
+					eloi.showInterfaceReset = true;
+				}
+			}
 		}
 	}
 	

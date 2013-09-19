@@ -10,17 +10,14 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
-import org.newdawn.slick.particles.Particle;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Eloi {
 	public static Eloi gameInstance;
 	
 	private boolean runGame = false;
+	
+	public static final String gameWindowTitle = "Project Eloi - V0.01";
 	
 	public static int screenWidth = 900;
 	public static int screenHeight = 500;
@@ -47,12 +44,16 @@ public class Eloi {
 	
 	//Debug stuff 
 	private boolean allowMouseOrientation = true;	
+	protected boolean showDebugLayer = true;
+	protected boolean showDebugLayerToggleReset = true;
+	protected boolean showInterface = true;
+	protected boolean showInterfaceReset = true;
 	
-	private List<EntityTextParticle> particles = new ArrayList<EntityTextParticle>();
+	protected GUI guiScreen = null;
 	
 	public static void main(String[] args){
 		//Parse arguments and initilise game obj.
-		Eloi game = new Eloi();
+		new Eloi();
 	}
 	
 	public Eloi(){
@@ -66,7 +67,8 @@ public class Eloi {
 		try {
 			Display.setDisplayMode(new DisplayMode(screenWidth, screenHeight));
 			Display.setFullscreen(fullscreen);
-			Display.create(new PixelFormat());
+			Display.create(new PixelFormat());			
+			Display.setTitle(gameWindowTitle);
 		} catch (LWJGLException ex){
 			writeExceptionToFile(ex);			
 		}		
@@ -103,10 +105,12 @@ public class Eloi {
 		getDelta();
 		lastFPS = getSystemTime();
 		
+		guiScreen = new GUITest();
+		
 		if (GLContext.getCapabilities().GL_ARB_vertex_buffer_object){
 			runGame = true;
 			if (allowMouseOrientation) Mouse.setGrabbed(true);
-			Mouse.setGrabbed(true);
+			MouseHelper.grab();
 			this.run();
 		} else {
 			Writer writer = null;
@@ -188,7 +192,7 @@ public class Eloi {
 			renderView.mbc.roll = -1;
 		}
 		
-		if (allowMouseOrientation){
+		if (allowMouseOrientation && MouseHelper.isGrabbed()){
 			float mouseX = Mouse.getDX() * 1.2F;
 			float mouseY = -(Mouse.getDY() * 1.2F);		
 			float pitch = renderView.getPitchRotation() + mouseY;
@@ -199,10 +203,25 @@ public class Eloi {
 		while (Keyboard.next()){
 			inputController.updateController(Keyboard.getEventKey(), Keyboard.getEventKeyState());
 			if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE){
-				this.runGame = false;
+				if (Keyboard.getEventKeyState()) {
+					if (MouseHelper.isGrabbed()) {
+						MouseHelper.unGrab();
+					} else {
+						runGame = false;
+					}
+				}
 			}
-		}		
+		}
+		
+		if (!MouseHelper.isGrabbed()){
+			if (Mouse.isButtonDown(2)){
+				MouseHelper.grab();
+			}
+		}
+			
 		renderView.update();
+		
+		guiScreen.update();
 		
 		globalRenderer.prepareForRender(renderView);
 	
@@ -211,21 +230,31 @@ public class Eloi {
 		
 		textRenderer.drawString3D("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", -5, -4, 3, 1f, 0f, 1f, 1f);
 		
-		textRenderer.drawString("FPS " + debugFPS, 0, 10, 0.5f);
-		textRenderer.drawString("DELTA " + delta, 0, 35, 0.5f);
-		textRenderer.drawString("X " + renderView.getX(), 0, 60, 0.5f);
-		textRenderer.drawString("Y " + renderView.getY(), 0, 85, 0.5f);
-		textRenderer.drawString("Z " + renderView.getZ(), 0, 110, 0.5f);		
-		textRenderer.drawString("ORIGIN POS " + renderView.getDistanceSquaredTo(0, 0, 0), 0, 135, 0.5f);
-		textRenderer.drawString("PITCH " + renderView.getPitchRotation(), 0, 160, 0.5f);
-		textRenderer.drawString("YAW " + renderView.getYawRotation(), 0, 185, 0.5f);
-		textRenderer.drawString("ROLL " + renderView.getRollRotation(), 0, 210, 0.5f);
+		if (guiScreen != null){
+			if (showInterface){
+				guiScreen.render(globalRenderer);
+			}
+		}
+		
+		if (showDebugLayer){
+			textRenderer.drawString("FPS " + debugFPS, 0, 10, 0.5f);
+			textRenderer.drawString("DELTA " + delta, 0, 35, 0.5f);
+			textRenderer.drawString("X " + renderView.getX(), 0, 60, 0.5f);
+			textRenderer.drawString("Y " + renderView.getY(), 0, 85, 0.5f);
+			textRenderer.drawString("Z " + renderView.getZ(), 0, 110, 0.5f);		
+			textRenderer.drawString("ORIGIN POS " + renderView.getDistanceSquaredTo(0, 0, 0), 0, 135, 0.5f);
+			textRenderer.drawString("PITCH " + renderView.getPitchRotation(), 0, 160, 0.5f);
+			textRenderer.drawString("YAW " + renderView.getYawRotation(), 0, 185, 0.5f);
+			textRenderer.drawString("ROLL " + renderView.getRollRotation(), 0, 210, 0.5f);
+			if (!MouseHelper.isGrabbed()){
+				textRenderer.drawString("MOUSE X " + Mouse.getX(), 0, 235, 0.5f);
+				textRenderer.drawString("MOUSE Y " + Mouse.getY(), 0, 260, 0.5f);
+			}
+		}
 		
 		if (Display.isCloseRequested()){
 			this.runGame = false;
 		}
-		
-		Display.setTitle("Project Eloi - V0.01");
 		
 		updateFPS();
 	}
