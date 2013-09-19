@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 public class GUI implements IRenderable {
 	public static final float genericGuiControlMapPixelSize = 0.00390625F;
 	protected List<GUIControl> controlList = new ArrayList<GUIControl>();
+	protected int clickHeldTime = 0;
 		
 	public GUI(){
 		
@@ -21,17 +22,26 @@ public class GUI implements IRenderable {
 		
 		for (GUIControl control : controlList){
 			if (control.isMouseOver(mouseX, mouseY)){
-				control.state = 1;
+				control.state = 1;	
 				if (Mouse.isButtonDown(0)){
-					control.state = 2;
-					control.onClick();
-					Display.setTitle("OVER");
+					control.setState(2);
+					if (clickHeldTime == 0){
+						this.fireEvents(control);
+						clickHeldTime += Eloi.delta;
+					}
+				}
+				Mouse.next();
+				if (!Mouse.getEventButtonState()){
+					clickHeldTime = 0;
 				}
 			} else {
-				control.state = 0;
-				Display.setTitle(Eloi.gameWindowTitle);
+				control.setState(0);
 			}
 		}
+	}
+	
+	protected void fireEvents(GUIControl guiControl){
+		guiControl.onClick();
 	}
 	
 	protected void build(){}

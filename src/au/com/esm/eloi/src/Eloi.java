@@ -35,6 +35,8 @@ public class Eloi {
 	public static float zNear = 0.02f;
 	public static float zFar = 100.0f;
 		
+	protected int fpsLimit = 256;
+	
 	//Temporary timing control stuff.
 	private long lastFrame;
 	private int fps;
@@ -257,6 +259,8 @@ public class Eloi {
 		}
 		
 		updateFPS();
+		
+		Display.sync(fpsLimit);
 	}
 	
 	private void testRender(){

@@ -6,12 +6,17 @@ public class GUIControlButton extends GUIControl {
 	private String displayText;
 	private float buttonStateOffset = 17;
 	
-	public GUIControlButton(String displayTxt, float x, float y, float width, float height){
+	public GUIControlButton(int controlId, String displayTxt, float x, float y, float width, float height){
+		super(controlId);
 		this.displayText = displayTxt;
 		this.xPosition = x;
 		this.yPosition = y;
 		this.width = width;
 		this.height = height;
+	}
+	
+	public void onClick(){
+		super.onClick();
 	}
 	
 	@Override
