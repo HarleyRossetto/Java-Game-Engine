@@ -10,8 +10,12 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
+import org.newdawn.slick.particles.Particle;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Eloi {
 	public static Eloi gameInstance;
@@ -43,6 +47,8 @@ public class Eloi {
 	
 	//Debug stuff 
 	private boolean allowMouseOrientation = true;	
+	
+	private List<EntityTextParticle> particles = new ArrayList<EntityTextParticle>();
 	
 	public static void main(String[] args){
 		//Parse arguments and initilise game obj.
@@ -199,7 +205,7 @@ public class Eloi {
 		renderView.update();
 		
 		globalRenderer.prepareForRender(renderView);
-				
+	
 		//Render
 		testRender();		
 		
