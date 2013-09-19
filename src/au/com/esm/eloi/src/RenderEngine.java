@@ -27,7 +27,7 @@ public class RenderEngine {
 	public void loadTextures(){
 		loadTexture("terrabasics", "TerrainBasics", EnumResourceType.Terrain, true, true);
 		loadTexture("font", "Font", EnumResourceType.Font, true, false);
-		loadTexture("interfaceGenerics", "GenericGUIControls", EnumResourceType.Interface, true, false);
+		loadTexture("genericControls", "GenericGUIControls", EnumResourceType.Interface, true, false);
 	}
 	
 	public void bindTexture(String name){
