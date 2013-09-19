@@ -154,6 +154,7 @@ public class RenderEngine {
 			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadIdentity();
+			//Need to switch bottom right and bottom top.
 			GL11.glOrtho(0.0D, Eloi.screenWidth, Eloi.screenHeight, 0.0D, -1, 1);
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 			GL11.glLoadIdentity();
