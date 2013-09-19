@@ -22,7 +22,7 @@ public class GUIControlButton extends GUIControl {
 	@Override
 	public void render(GlobalRenderer globalRenderer){
 		float yOffset = buttonStateOffset * state;
-		GL11.glColor3f(1F, 1F, 1F);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glBegin(GL11.GL_TRIANGLES);			
 		GL11.glTexCoord2f(GUI.genericGuiControlMapPixelSize * 2, GUI.genericGuiControlMapPixelSize * (2 + yOffset));
 		GL11.glVertex2f(xPosition, yPosition);			
@@ -39,8 +39,8 @@ public class GUIControlButton extends GUIControl {
 		GL11.glEnd();
 		RendererText textRenderer = Eloi.getEloi().textRenderer;
 		int stringLength = textRenderer.getStringLength(displayText);
-		float textXposition = xPosition + ((width / 2) - (stringLength / 2) + 18);
-		float textYposition = 10 + yPosition;
+		float textXposition = xPosition + ((width / 2) - (stringLength / 2));
+		float textYposition = (height / 2) + yPosition;
 		Eloi.getEloi().textRenderer.drawString(displayText, textXposition, textYposition);
 	}
 }
