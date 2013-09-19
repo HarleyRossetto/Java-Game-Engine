@@ -1,6 +1,5 @@
 package au.com.esm.eloi.src;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -11,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
+
 import java.io.*;
 
 public class Eloi {
@@ -24,7 +24,7 @@ public class Eloi {
 	
 	protected RenderEngine renderEngine;
 	protected GlobalRenderer globalRenderer;
-	private RendererText textRenderer;	
+	protected RendererText textRenderer;	
 	
 	protected Camera renderView;	
 	protected InputController inputController;
@@ -42,8 +42,7 @@ public class Eloi {
 	public static int delta;
 	
 	//Debug stuff 
-	private boolean allowMouseOrientation = true;
-	
+	private boolean allowMouseOrientation = true;	
 	
 	public static void main(String[] args){
 		//Parse arguments and initilise game obj.
@@ -188,7 +187,6 @@ public class Eloi {
 			float mouseY = -(Mouse.getDY() * 1.2F);		
 			float pitch = renderView.getPitchRotation() + mouseY;
 			float yaw = renderView.getYawRotation() + mouseX;
-			//Pitch needs calculations?
 			renderView.setCameraRotation(yaw, pitch, 0.0F);
 		}
 		
@@ -197,18 +195,16 @@ public class Eloi {
 			if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE){
 				this.runGame = false;
 			}
-		}
-						
-		renderView.update();	
-				
+		}		
+		renderView.update();
+		
 		globalRenderer.prepareForRender(renderView);
 				
 		//Render
 		testRender();		
 		
-		textRenderer.drawString3D("STRING", -5, -4, 3);
+		textRenderer.drawString3D("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", -5, -4, 3, 1f, 0f, 1f, 1f);
 		
-		textRenderer.drawString3D("STRING", -5, -4, 3, 0, 0, 0, 0F, 0F, 0F, 0.5F);
 		textRenderer.drawString("FPS " + debugFPS, 0, 10, 0.5f);
 		textRenderer.drawString("DELTA " + delta, 0, 35, 0.5f);
 		textRenderer.drawString("X " + renderView.getX(), 0, 60, 0.5f);
