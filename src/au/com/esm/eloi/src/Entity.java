@@ -2,22 +2,23 @@ package au.com.esm.eloi.src;
 
 public class Entity {
 	private int entityId;
-	private float xPosition;
-	private float yPosition;
-	private float zPosition;
-	private float previousXposition;
-	private float previousYposition;
-	private float previousZposition;
-	private float yawRotation = 0;
-	private float pitchRotation = 0;
-	private float previousYawRotation;
-	private float previousPitchRotation;
-	private float xVelocity;
-	private float yVelocity;
-	private float zVelocity;
-	private float speed;
-	private float weight;
-	private int age;
+	protected float xPosition;
+	protected float yPosition;
+	protected float zPosition;
+	protected float previousXposition;
+	protected float previousYposition;
+	protected float previousZposition;
+	protected float yawRotation = 0;
+	protected float pitchRotation = 0;
+	protected float rollRotation = 0;
+	protected float previousYawRotation;
+	protected float previousPitchRotation;
+	protected float xVelocity;
+	protected float yVelocity;
+	protected float zVelocity;
+	protected float speed;
+	protected float weight;
+	protected int age;
 	
 	public Entity(int id){
 		entityId = id;
